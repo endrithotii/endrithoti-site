@@ -243,13 +243,6 @@ footer { color: var(--muted); font-size: 0.85rem; padding-block: 0 3rem; }
 
   <h2 style="margin-top: 3.5rem">Selected projects</h2>
   <div class="projects">
-    <details class="project tagged" data-skills="llm rag python">
-      <summary><h3>RAG knowledge base and semantic search</h3><p>LLM answers grounded in internal content, with their sources.</p><span class="plus" aria-hidden="true"></span></summary>
-      <div class="more">
-        <p>A retrieval-augmented knowledge system: embeddings and semantic retrieval surface the relevant source material, and the model answers from it. Structured metadata and multilingual search were part of the design.</p>
-        <p class="tools">LLMs, retrieval-augmented generation, embeddings, vector search</p>
-      </div>
-    </details>
     <details class="project tagged" data-skills="python llm">
       <summary><h3>Second Read</h3><p>Daily literature monitoring where every AI answer is checked twice.</p><span class="plus" aria-hidden="true"></span></summary>
       <div class="more">
@@ -257,6 +250,37 @@ footer { color: var(--muted); font-size: 0.85rem; padding-block: 0 3rem; }
         <p class="live" id="sr-live">Runs every morning.</p>
         <p><a href="https://second-read.endrithoti.ch/">See the latest report</a></p>
         <p class="tools">Python, PubMed E-utilities, two LLMs from different providers, scheduled runs, Vercel</p>
+      </div>
+    </details>
+    <details class="project tagged" data-skills="python llm">
+      <summary><h3>trial-match</h3><p>Which recruiting clinical trials could a patient join, and why.</p><span class="plus" aria-hidden="true"></span></summary>
+      <div class="more">
+        <p>Pulls recruiting trials near a patient from ClinicalTrials.gov and splits each trial's eligibility text into single criteria. Age and sex are checked by code; every other criterion is judged by a model that must name the patient facts it used, and a second model from another provider re-judges every verdict that decides the outcome. The result lists, per trial, what rules the patient out and what to clarify before referral.</p>
+        <p><a href="https://trial-match.endrithoti.ch/">See it for three synthetic patients</a></p>
+        <p class="tools">Python, ClinicalTrials.gov API, two LLMs from different providers, grounded verdicts</p>
+      </div>
+    </details>
+    <details class="project tagged" data-skills="python llm">
+      <summary><h3>eval-lab</h3><p>Does a new prompt or model really work better, or does it only look that way?</p><span class="plus" aria-hidden="true"></span></summary>
+      <div class="more">
+        <p>An evaluation harness for LLM features. Every answer field is scored as correct, wrong, missed or invented, so hallucination is measured on its own. Two runs are compared case by case with a paired bootstrap and an exact McNemar test, and a verdict is only called when both agree. On 30 real trial records, a stricter prompt cut the hallucination rate from 38% to 6%.</p>
+        <p><a href="https://eval-lab.endrithoti.ch/">See the results</a></p>
+        <p class="tools">Python, SQLite, paired statistics, CI gate for prompt and model changes</p>
+      </div>
+    </details>
+    <details class="project tagged" data-skills="python rag llm">
+      <summary><h3>Swiss law search</h3><p>Swiss federal law searched in German, French, Italian and English at once.</p><span class="plus" aria-hidden="true"></span></summary>
+      <div class="more">
+        <p>1,795 articles from seven federal acts, read from Fedlex and lined up article by article in all four languages. Searching all languages together and fusing the rankings put the right article in the top five for 63% of 40 test questions, against 35% for English only (McNemar p = 0.007). Some acts have no English text at all, so English-only search cannot find them.</p>
+        <p><a href="https://swiss-law-search.endrithoti.ch/">Try the search</a></p>
+        <p class="tools">Python, Fedlex SPARQL and Akoma Ntoso XML, BM25, rank fusion, LLM query translation</p>
+      </div>
+    </details>
+    <details class="project tagged" data-skills="llm rag python">
+      <summary><h3>RAG knowledge base and semantic search</h3><p>LLM answers grounded in internal content, with their sources.</p><span class="plus" aria-hidden="true"></span></summary>
+      <div class="more">
+        <p>A retrieval-augmented knowledge system: embeddings and semantic retrieval surface the relevant source material, and the model answers from it. Structured metadata and multilingual search were part of the design.</p>
+        <p class="tools">LLMs, retrieval-augmented generation, embeddings, vector search</p>
       </div>
     </details>
     <details class="project tagged" data-skills="typescript llm postgres">
@@ -331,17 +355,35 @@ var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     [[K, "postgresql  aws-lambda  docker  react"]]
   ];
   var PROJECTS = [
-    { key: "rag", name: "RAG knowledge base and semantic search",
-      lines: ["LLM answers grounded in internal content, with their sources.",
-              "Embeddings and semantic retrieval find the material; the model answers from it.",
-              "Structured metadata, multilingual search in mind."],
-      tools: "llms  rag  embeddings  vector-search" },
     { key: "second-read", name: "Second Read",
       lines: ["Daily literature monitoring where every AI answer is checked twice.",
               "One model extracts the facts; code checks every quote is in the paper;",
               "a second model from another provider re-reads it. Type second-read to see the latest run."],
       tools: "python  pubmed  two-llms  scheduled-runs  vercel",
       link: ["https://second-read.endrithoti.ch/", "second-read.endrithoti.ch"] },
+    { key: "trial-match", name: "trial-match",
+      lines: ["Which recruiting clinical trials could a patient join, and why.",
+              "Criteria judged one by one; each verdict names the facts it used,",
+              "and a second model from another provider re-judges the decisive ones."],
+      tools: "python  clinicaltrials.gov  two-llms",
+      link: ["https://trial-match.endrithoti.ch/", "trial-match.endrithoti.ch"] },
+    { key: "eval-lab", name: "eval-lab",
+      lines: ["Does a new prompt or model really work better?",
+              "Correct, wrong, missed and invented scored apart; paired bootstrap and McNemar.",
+              "A stricter prompt cut hallucination from 38% to 6% on 30 real records."],
+      tools: "python  sqlite  paired-statistics  ci-gate",
+      link: ["https://eval-lab.endrithoti.ch/", "eval-lab.endrithoti.ch"] },
+    { key: "swiss-law", name: "Swiss law search",
+      lines: ["Swiss federal law in German, French, Italian and English, article by article.",
+              "Four-language search: right article in the top five for 63% of questions,",
+              "English only: 35%."],
+      tools: "python  fedlex  bm25  rank-fusion",
+      link: ["https://swiss-law-search.endrithoti.ch/", "swiss-law-search.endrithoti.ch"] },
+    { key: "rag", name: "RAG knowledge base and semantic search",
+      lines: ["LLM answers grounded in internal content, with their sources.",
+              "Embeddings and semantic retrieval find the material; the model answers from it.",
+              "Structured metadata, multilingual search in mind."],
+      tools: "llms  rag  embeddings  vector-search" },
     { key: "campaign", name: "AI-assisted campaign analysis platform",
       lines: ["Campaign data and scoring rules turned into short recommendations",
               "with structured LLM output."],
